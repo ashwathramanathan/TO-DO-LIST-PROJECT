@@ -1,10 +1,12 @@
+import os
+import urllib.parse
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "dev-only-secret-key-change-me"
-DEBUG = True
-ALLOWED_HOSTS = []
+SECRET_KEY = os.environ.get("SECRET_KEY", "dev-only-secret-key-change-me")
+DEBUG = os.environ.get("DEBUG", "True") == "True"
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".vercel.app", "*"]
 
 INSTALLED_APPS = [
     "django.contrib.contenttypes",
@@ -41,12 +43,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "todoproject.wsgi.application"
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+# Vercel uses PostgreSQL (DATABASE_URL); locally uses SQLite
+if os.environ.get("DATABASE_URL"):
+    url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": url.path.lstrip("/"),
+            "USER": url.username,
+            "PASSWORD": url.password,
+            "HOST": url.hostname,
+            "PORT": url.port or 5432,
+            "OPTIONS": {"sslmode": "require"},
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Asia/Kolkata"

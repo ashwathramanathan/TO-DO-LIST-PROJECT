@@ -1,4 +1,4 @@
-# Plans: Student To-Do List
+# Project Name: Student To-Do List
 
 **FDS Django Practical Project**
 **Name:** Ashwath Ramanathan
@@ -27,13 +27,16 @@ Live demo: https://to-do-list-project-chi-bay.vercel.app/
 
 ## Technologies Used
 
-- Python
-- Django
-- SQLite
-- HTML
-- CSS
-- Git and GitHub
-- Vercel (deployment)
+| Technology | Purpose |
+|---|---|
+| Python 3 | Backend programming language |
+| Django | Web framework (MVT architecture) |
+| SQLite | Database to store tasks |
+| HTML | Page structure and Django templates |
+| CSS | Styling (CSS variables, flexbox, responsive text sizing) |
+| Google Fonts | Bricolage Grotesque font |
+| Git and GitHub | Version control |
+| Vercel | Online deployment |
 
 ## Project Structure
 
@@ -114,6 +117,21 @@ The project follows Django's MVT structure.
 
 The main task fields are title, completion status and creation time.
 
+
+## Django Concepts Used
+
+- MVT architecture
+- Models and the ORM (`create`, `filter`, `count`, `delete`)
+- Migrations
+- URL routing with path converters (`<int:pk>`), `include()` and named URLs
+- Template inheritance (`{% extends %}` and `{% block %}`)
+- Template tags (`{% for %}`, `{% if %}`, `{% url %}`, `{% now %}`)
+- Sessions
+- CSRF protection (`{% csrf_token %}`)
+- `@require_POST` decorator
+- Shortcuts: `render`, `redirect`, `get_object_or_404`
+- Input validation (trimming text and limiting length)
+
 ## Deployment
 
 The project is deployed on Vercel.
@@ -130,3 +148,10 @@ The project is deployed on Vercel.
 4. Mark the task as completed.
 5. Use the All, To do and Done filters.
 6. Delete a task or clear all completed tasks.
+
+## Future Improvements
+
+- Separate tasks for each user with login
+- Edit a task
+- Task priority and due dates
+- Search tasks by title

@@ -1,0 +1,62 @@
+{% extends "tasks/base.html" %}
+{% block title %}{{ name }}'s plans{% endblock %}
+
+{% block content %}
+  <p class="date">{% now "l, j F" %}</p>
+  <h1>Hey! {{ name }} what are your plans for today!</h1>
+
+  <form method="post" action="{% url 'add' %}" class="add">
+    {% csrf_token %}
+    <input type="hidden" name="show" value="{{ show }}">
+    <input type="text" name="title" maxlength="200"
+           placeholder="Add a task" autofocus required aria-label="New task">
+    <button class="btn" type="submit">Add task</button>
+  </form>
+
+  <nav class="filters" aria-label="Filter tasks">
+    <a href="?show=all" class="{% if show == 'all' %}on{% endif %}">All</a>
+    <a href="?show=todo" class="{% if show == 'todo' %}on{% endif %}">To do</a>
+    <a href="?show=done" class="{% if show == 'done' %}on{% endif %}">Done</a>
+  </nav>
+
+  <ul>
+    {% for t in tasks %}
+      <li class="task {% if t.done %}is-done{% endif %}">
+        <form method="post" action="{% url 'toggle' t.pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="show" value="{{ show }}">
+          <button class="check {% if t.done %}is-done{% endif %}" type="submit"
+                  aria-label="{% if t.done %}Mark as not done{% else %}Mark as done{% endif %}: {{ t.title }}">{% if t.done %}&#10003;{% endif %}</button>
+        </form>
+
+        <span class="title">{{ t.title }}</span>
+
+        <form method="post" action="{% url 'delete' t.pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="show" value="{{ show }}">
+          <button class="link" type="submit" aria-label="Delete {{ t.title }}">Delete</button>
+        </form>
+      </li>
+    {% empty %}
+      <li class="empty">
+        {% if show == 'done' %}Nothing finished yet. Tick a task to see it here.
+        {% elif show == 'todo' %}Everything is done. Add a new task above.
+        {% else %}No tasks yet. Add your first one above.{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <div class="foot">
+    <span>{{ left }} left</span>
+    <span>
+      {% if finished %}
+        <form method="post" action="{% url 'clear_done' %}" style="display:inline">
+          {% csrf_token %}
+          <input type="hidden" name="show" value="{{ show }}">
+          <button class="link" type="submit">Clear done</button>
+        </form>
+      {% endif %}
+      <a href="{% url 'welcome' %}">Change name</a>
+    </span>
+  </div>
+{% endblock %}

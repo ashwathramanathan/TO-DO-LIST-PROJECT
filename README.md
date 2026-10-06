@@ -3,7 +3,9 @@
 **FDS Django Practical Project**
 
 **Name:** Ashwath Ramanathan
+
 **Registration Number:** RA2511056030022
+
 **Course:** B.Tech CSE Data Science - 2nd Year, 3rd Semester
 
 ## Project

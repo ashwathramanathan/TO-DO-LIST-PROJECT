@@ -1,5 +1,4 @@
 import os
-import urllib.parse
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,30 +42,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "todoproject.wsgi.application"
 
-# Use signed cookies for sessions (doesn't require database writes on Vercel)
+# Use signed cookies for sessions
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
-# Vercel uses PostgreSQL (DATABASE_URL); locally uses SQLite
-if os.environ.get("DATABASE_URL"):
-    url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": url.path.lstrip("/"),
-            "USER": url.username,
-            "PASSWORD": url.password,
-            "HOST": url.hostname,
-            "PORT": url.port or 5432,
-            "OPTIONS": {"sslmode": "require"},
-        }
+# Minimal database config (not actually used for tasks, just for Django admin)
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+}
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Asia/Kolkata"

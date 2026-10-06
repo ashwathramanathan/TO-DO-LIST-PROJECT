@@ -36,7 +36,6 @@ Live demo: https://to-do-list-project-chi-bay.vercel.app/
 | Django | Web framework (MVT architecture) |
 | SQLite | Database to store tasks |
 | HTML | Page structure and Django templates |
-| CSS | Styling (CSS variables, flexbox, responsive text sizing) |
 | Google Fonts | Bricolage Grotesque font |
 | Git and GitHub | Version control |
 | Vercel | Online deployment |
@@ -49,9 +48,6 @@ todo_project/
 ├── requirements.txt
 ├── README.md
 ├── .gitignore
-├── vercel.json
-├── api/
-│   └── index.py
 ├── todoproject/
 │   ├── __init__.py
 │   ├── settings.py

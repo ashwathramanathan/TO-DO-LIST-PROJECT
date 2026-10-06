@@ -10,10 +10,10 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".vercel.app", "*"]
 
 INSTALLED_APPS = [
     "django.contrib.contenttypes",
-    "django.contrib.sessions",   # remembers the user's name (no password needed)
+    "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "tasks",                     # our to-do app
+    "tasks",
 ]
 
 MIDDLEWARE = [
@@ -42,6 +42,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "todoproject.wsgi.application"
+
+# Use signed cookies for sessions (doesn't require database writes on Vercel)
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 # Vercel uses PostgreSQL (DATABASE_URL); locally uses SQLite
 if os.environ.get("DATABASE_URL"):
@@ -73,5 +76,4 @@ USE_TZ = True
 STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# The name is kept for 1 year in a browser cookie
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 365

@@ -87,10 +87,6 @@ The main task fields are title, completion status and creation time.
 
 The project is deployed on Vercel.
 
-- `vercel.json` sends all requests to `api/index.py`, which runs Django through WSGI.
-- `ALLOWED_HOSTS` includes `.vercel.app` so Django accepts requests on Vercel domains.
-- On Vercel the SQLite file is stored in `/tmp`, which is temporary, so saved tasks can reset.
-
 ## Basic Demo
 
 1. Start the Django server.

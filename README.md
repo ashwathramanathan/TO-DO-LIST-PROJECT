@@ -67,40 +67,6 @@ todo_project/
         └── welcome.html
 ```
 
-## How to Run
-
-### 1. Create a virtual environment
-
-```bash
-python -m venv venv
-```
-
-Windows:
-
-```bash
-venv\Scripts\activate
-```
-
-### 2. Install the required packages
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Create and apply migrations
-
-```bash
-python manage.py makemigrations tasks
-python manage.py migrate
-```
-
-### 4. Start the server
-
-```bash
-python manage.py runserver
-```
-
-Open `http://127.0.0.1:8000/` in the browser.
 
 ## How It Works
 
@@ -116,20 +82,6 @@ The project follows Django's MVT structure.
 
 The main task fields are title, completion status and creation time.
 
-
-## Django Concepts Used
-
-- MVT architecture
-- Models and the ORM (`create`, `filter`, `count`, `delete`)
-- Migrations
-- URL routing with path converters (`<int:pk>`), `include()` and named URLs
-- Template inheritance (`{% extends %}` and `{% block %}`)
-- Template tags (`{% for %}`, `{% if %}`, `{% url %}`, `{% now %}`)
-- Sessions
-- CSRF protection (`{% csrf_token %}`)
-- `@require_POST` decorator
-- Shortcuts: `render`, `redirect`, `get_object_or_404`
-- Input validation (trimming text and limiting length)
 
 ## Deployment
 
